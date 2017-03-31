@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+    <title>Departamento</title>
+</h:head>
+
+<h:body>
+    <h:form id="mainForm" prependId="false">
+        <h1>Información de Departamento</h1>
+        <div class="contentFormData">
+
+            <p:growl autoUpdate="true"/>
+
+            <div>
+                <h3>Información Departamento</h3>
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="Nombre" value="Nombre"/>
+                    <p:inputText disabled="true" id="Nombre" value="#{departmentController.department.name}"/>
+                    <p:outputLabel for="inChargeName" value="Nombre a Cargo"/>
+                    <p:inputText disabled="true" id="inChargeName" value="#{departmentController.department.inchargeName}"/>
+                    <p:outputLabel for="Vicepresidencia" value="Vicepresidencia"/>
+                    <p:inputText disabled="true" id="Vicepresidencia" value="#{departmentController.department.vicePresidency}"/>
+                </p:panelGrid>
+
+            </div>
+
+            <p:dataTable value='#{departmentController.department.employees}'
+                         widgetVar="citizensDt_w" id="citizensDt" var="item" rows="10"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}" emptyMessage="No se encontraron datos.">
+                <p:column headerText="Nombre">
+                    <p:outputLabel value="#{item.name}"/>
+                </p:column>
+                <p:column headerText="Apellido">
+                    <p:outputLabel value="#{item.lastName}"/>
+                </p:column>
+                <p:column headerText="Genero">
+                    <p:outputLabel value="#{item.gender}"/>
+                </p:column>
+                <p:column headerText="Fecha de Nacimiento">
+                    <p:outputLabel value="#{item.bornDate}"/>
+                </p:column>
+                <p:column headerText="Direccion">
+                    <p:outputLabel value="#{item.address}"/>
+                </p:column>
+                <p:column headerText="Email">
+                    <p:outputLabel value="#{item.email}"/>
+                </p:column>
+                <p:column headerText="Numero de Telefono">
+                    <p:outputLabel value="#{item.phoneNumber}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+        </div>
+        <div class="contentFormData">
+
+            <p:button href="departments.xhtml" style="margin-right: 20px;" styleClass="btn_gray floatR"
+                      value="Volver" id="cancelButton"/>
+            <div class="clear"></div>
+        </div>
+    </h:form>
+</h:body>
+
+</html>

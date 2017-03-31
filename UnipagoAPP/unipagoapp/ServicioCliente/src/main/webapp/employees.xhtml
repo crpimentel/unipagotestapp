@@ -1,0 +1,86 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:event type="preRenderView" listener="#{employeeController.init()}"/>
+<h:head>
+    <title>Empleados</title>
+</h:head>
+
+<h:body>
+    <h1>Empleados</h1>
+
+    <h:form id="mainForm" prependId="false">
+        <p:commandButton styleClass="btn_blue light displayInline" action="#{employeeController.create}"
+                         value="Anadir Empleado" immediate="true"/>
+        <h3>Filtrar</h3>
+        <div class="division five">
+            <div class="subdivision">
+
+            </div>
+        </div>
+        <p:dataTable value='#{employeeController.employees}' filteredValue="#{employeeController.filteredEmployees}"
+                     widgetVar="citizensDt_w" id="citizensDt" var="item" rows="10"
+                     paginator="true"
+                     paginatorPosition="bottom"
+                     paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}" emptyMessage="No se encontraron datos.">
+            <f:facet name="header">
+                <p:outputLabel value="Buscar"/>
+                <p:inputText id="globalFilter"
+                             onkeyup="PF('citizensDt_w').filter()"
+                             placeholder="Buscar"/>
+            </f:facet>
+            <p:column>
+
+                <p:commandButton styleClass=" btn_edit displayInline" value="Editar"
+                                 action="#{employeeController.edit(item)}" process="@this"/>
+                <p:commandButton styleClass="btn_delete displayInline" value="Eliminar"
+                                 action="#{employeeController.delete(item)}" process="@this">
+                    <p:confirm header="Confirmacion" message="Esta seguro?" icon="ui-icon-alert"/>
+                </p:commandButton>
+
+            </p:column>
+            <p:column filterBy="#{item.name}" sortBy="#{item.name}" filterStyle="display:none"
+                      headerText="Nombre">
+                <p:outputLabel value="#{item.name}"/>
+            </p:column>
+            <p:column filterBy="#{item.lastName}" sortBy="#{item.lastName}" filterStyle="display:none"
+                      headerText="Apellido">
+                <p:outputLabel value="#{item.lastName}"/>
+            </p:column>
+            <p:column filterBy="#{item.gender}" sortBy="#{item.gender}" filterStyle="display:none"
+                      headerText="Genero">
+                <p:outputLabel value="#{item.gender}"/>
+            </p:column>
+            <p:column sortBy="#{item.bornDate}"
+                      headerText="Fecha de Nacimiento">
+                <p:outputLabel value="#{item.bornDate}"/>
+            </p:column>
+            <p:column filterBy="#{item.address}" sortBy="#{item.address}" filterStyle="display:none"
+                      headerText="Direccion">
+                <p:outputLabel value="#{item.address}"/>
+            </p:column>
+            <p:column filterBy="#{item.email}" sortBy="#{item.email}" filterStyle="display:none"
+                      headerText="Email">
+                <p:outputLabel value="#{item.email}"/>
+            </p:column>
+            <p:column filterBy="#{item.phoneNumber}" sortBy="#{item.phoneNumber}" filterStyle="display:none"
+                      headerText="Numero de Telefono">
+                <p:outputLabel value="#{item.phoneNumber}"/>
+            </p:column>
+
+
+        </p:dataTable>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+        </p:confirmDialog>
+    </h:form>
+</h:body>
+
+</html>

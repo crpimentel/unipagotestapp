@@ -1,0 +1,62 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:event type="preRenderView" listener="#{departmentController.init()}"/>
+<h:head>
+    <title>Departamentos</title>
+</h:head>
+
+<h:body>
+    <h1>Departamentos</h1>
+
+    <h:form id="mainForm" prependId="false">
+        <h3>Filtrar</h3>
+        <div class="division five">
+            <div class="subdivision">
+
+            </div>
+        </div>
+        <p:dataTable value='#{departmentController.departments}' filteredValue="#{departmentController.filteredDepartments}"
+                     widgetVar="citizensDt_w" id="citizensDt" var="item" rows="10"
+                     paginator="true"
+                     paginatorPosition="bottom"
+                     paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}" emptyMessage="No se encontraron datos.">
+
+            <p:column>
+
+                <p:commandButton styleClass=" btn_edit displayInline" value="Ver"
+                                 action="#{departmentController.view(item)}" process="@this"/>
+
+            </p:column>
+            <p:column headerText="ID">
+                <p:outputLabel value="#{item.id}"/>
+            </p:column>
+            <p:column filterBy="#{item.name}" sortBy="#{item.name}"
+                      headerText="Nombre">
+                <p:outputLabel value="#{item.name}"/>
+            </p:column>
+            <p:column filterBy="#{item.vicePresidency}" sortBy="#{item.vicePresidency}"
+                      headerText="Vicepresidencia">
+                <p:outputLabel value="#{item.vicePresidency}"/>
+            </p:column>
+
+            <p:column headerText="Nombre Encargado">
+                <p:outputLabel value="#{item.inchargeName}"/>
+            </p:column>
+
+
+        </p:dataTable>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+        </p:confirmDialog>
+    </h:form>
+</h:body>
+
+</html>

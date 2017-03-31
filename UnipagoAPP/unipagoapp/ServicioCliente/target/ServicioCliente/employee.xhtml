@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+    <title>EMPLEADO</title>
+</h:head>
+
+<h:body>
+    <h:form id="mainForm" prependId="false">
+        <h1>Información de Empleado</h1>
+        <div class="contentFormData">
+
+            <p:growl autoUpdate="true"/>
+
+            <div>
+                <h3>Información Empleado</h3>
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="Nombre" value="Nombre"/>
+                    <p:inputText required="true" id="Nombre" value="#{employeeController.employee.name}"/>
+                    <p:outputLabel for="Apellido" value="Apellido"/>
+                    <p:inputText required="true" id="Apellido" value="#{employeeController.employee.lastName}"/>
+                    <p:outputLabel for="Genero" value="Género"/>
+                    <p:selectOneButton id="Genero" value="#{employeeController.employee.gender}">
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                    </p:selectOneButton>
+                    <p:outputLabel for="FechaNacimiento" value="Fecha de Nacimiento"/>
+                    <p:calendar converter="XMLGregorianCalendarConverter" id="FechaNacimiento" required="true" pattern="dd/MM/yyyy"
+                                value="#{employeeController.employee.bornDate}" />
+                    <p:outputLabel for="Direccion" value="Direccion"/>
+                    <p:inputText required="true" id="Direccion" value="#{employeeController.employee.address}"/>
+                    <p:outputLabel for="Email" value="Email"/>
+                    <p:inputText type="email" required="true" id="Email" value="#{employeeController.employee.email}"/>
+                    <p:outputLabel for="Telefono" value="Telefono"/>
+                    <p:inputText required="true" id="Telefono" value="#{employeeController.employee.phoneNumber}"/>
+                    <p:outputLabel for="Salario" value="Salario"/>
+                    <p:inputNumber required="true" id="Salario" value="#{employeeController.employee.salary}"/>
+
+                    <p:outputLabel for="departamento" value="Departamento"/>
+                    <p:selectOneMenu required="true" id="departamento" converter="departmentConverter" value="#{employeeController.employee.department}">
+                        <f:selectItems value="#{departmentController.departments}" var="department" itemLabel="#{department.name}" itemValue="#{department}" />
+                    </p:selectOneMenu>
+                </p:panelGrid>
+
+            </div>
+
+        </div>
+        <div class="contentFormData">
+
+            <p:commandButton styleClass="btn_orange floatR"
+                             action="#{employeeController.save}" process="@form"
+                             value="Guardar"/>
+            <p:button href="employees.xhtml" style="margin-right: 20px;" styleClass="btn_gray floatR"
+                      value="Cancelar" id="cancelButton"/>
+            <div class="clear"></div>
+        </div>
+    </h:form>
+</h:body>
+
+</html>
